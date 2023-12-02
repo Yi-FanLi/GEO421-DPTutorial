@@ -1,0 +1,4 @@
+*/model.ckpt*
+*/*.pb
+*/*.log
+*/slurm*out
