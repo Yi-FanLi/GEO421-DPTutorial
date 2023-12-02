@@ -11,4 +11,4 @@ module purge
 module load anaconda3/2021.11
 conda activate /tigress/yifanl/usr/licensed/anaconda3/2021.11/envs/dp-v2.2.7
 
-dp train input.json >> train.log
+( /bin/sh -c '{ if [ ! -f model.ckpt.index ]; then dp train input.json; else dp train input.json --restart model.ckpt; fi }'&&dp freeze&&dp compress ) 1>>train.log 2>>train.log
