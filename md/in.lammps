@@ -1,0 +1,28 @@
+timer timeout 00:55:40 every 500
+units           metal
+boundary        p p p
+atom_style      atomic
+atom_modify     map yes
+
+neighbor        2.0 bin
+neigh_modify    every 10 delay 0 check yes
+
+read_data data.300K_liq128H2O_200ps
+
+mass 		1 15.9994
+mass		2 1.00794
+pair_style deepmd frozen_model_compressed.pb
+pair_coeff      * *	
+
+
+fix 1 all npt temp 300.0 300.0 0.1 iso 1.0 1.0 0.5
+
+dump            1 all custom 500 01.xyz id type x y z
+dump_modify     1 append no sort id format line "%d %d %.3f %.3f %.3f %.3f %.3f %.3f"
+
+timestep 5e-4
+thermo_style custom step temp pe etotal vol density
+thermo          500
+thermo_modify format line "%d %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e %.6e"
+
+run 200000
