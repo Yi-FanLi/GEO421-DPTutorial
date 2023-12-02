@@ -4,4 +4,5 @@
 */slurm*out
 train/input_v2_compat.json
 train/out.json
+train/checkpoint
 !model/frozen_model_compressed.pb
